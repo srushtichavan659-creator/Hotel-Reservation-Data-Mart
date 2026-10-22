@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   LayoutDashboard,
   Database,
@@ -53,20 +53,13 @@ type Page =
   | "Insights"
   | "Experiments Lab";
 
-const monthlyBookings = [
-  { month: "Jul", bookings: 12600 },
-  { month: "Aug", bookings: 14200 },
-  { month: "Sep", bookings: 10450 },
-  { month: "Oct", bookings: 11150 },
-  { month: "Nov", bookings: 6800 },
-  { month: "Dec", bookings: 6700 },
-  { month: "Jan", bookings: 5900 },
-  { month: "Feb", bookings: 8100 },
-  { month: "Mar", bookings: 10100 },
-  { month: "Apr", bookings: 11000 },
-  { month: "May", bookings: 11700 },
-  { month: "Jun", bookings: 10800 },
-];
+type DashboardData = {
+  totalBookings: number;
+  canceledBookings: number;
+  cancellationRate: number;
+  averageDailyRate: number;
+  monthlyBookings: { month: string; bookings: number }[];
+};
 
 const revenueData = [
   { month: "Jul", revenue: 1280000 },
@@ -203,7 +196,10 @@ function App() {
               System Connected
             </div>
 
-            <button className="icon-button">
+            <button
+              className="icon-button"
+              onClick={() => window.location.reload()}
+            >
               <RefreshCw size={17} />
             </button>
 
@@ -228,6 +224,35 @@ function App() {
 /* ========================= DASHBOARD ========================= */
 
 function DashboardPage() {
+  const [dashboardData, setDashboardData] = useState<DashboardData>({
+    totalBookings: 0,
+    canceledBookings: 0,
+    cancellationRate: 0,
+    averageDailyRate: 0,
+    monthlyBookings: [],
+  });
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/dashboard")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch dashboard data");
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        setDashboardData(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Dashboard API error:", error);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <>
       <PageHeader
@@ -253,14 +278,20 @@ function DashboardPage() {
 
       <div className="section-heading">
         <h2>Key Performance Indicators</h2>
-        <span>Live dataset summary</span>
+        <span>
+          {loading ? "Loading dataset..." : "Live dataset summary"}
+        </span>
       </div>
 
       <div className="kpi-grid">
         <KpiCard
           icon={<CalendarDays />}
           title="Total Bookings"
-          value="119,390"
+          value={
+            loading
+              ? "..."
+              : dashboardData.totalBookings.toLocaleString()
+          }
           text="Total reservation records"
           type="pink"
         />
@@ -268,7 +299,11 @@ function DashboardPage() {
         <KpiCard
           icon={<Ban />}
           title="Canceled Bookings"
-          value="44,224"
+          value={
+            loading
+              ? "..."
+              : dashboardData.canceledBookings.toLocaleString()
+          }
           text="Reservations canceled"
           type="cyan"
         />
@@ -276,7 +311,11 @@ function DashboardPage() {
         <KpiCard
           icon={<BarChart3 />}
           title="Cancellation Rate"
-          value="37.04%"
+          value={
+            loading
+              ? "..."
+              : `${dashboardData.cancellationRate}%`
+          }
           text="Percentage of cancellations"
           type="yellow"
         />
@@ -284,7 +323,11 @@ function DashboardPage() {
         <KpiCard
           icon={<Users />}
           title="Average Daily Rate"
-          value="€101.83"
+          value={
+            loading
+              ? "..."
+              : `€${dashboardData.averageDailyRate}`
+          }
           text="Average daily room rate"
           type="purple"
         />
@@ -300,7 +343,7 @@ function DashboardPage() {
 
           <div className="chart-container">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={monthlyBookings}>
+              <BarChart data={dashboardData.monthlyBookings}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
                 <YAxis />
@@ -325,7 +368,14 @@ function DashboardPage() {
           <div className="overview-list">
             <OverviewRow label="Dataset" value="Connected" />
             <OverviewRow label="Database" value="SQLite" />
-            <OverviewRow label="Total records" value="119,390" />
+            <OverviewRow
+              label="Total records"
+              value={
+                loading
+                  ? "..."
+                  : dashboardData.totalBookings.toLocaleString()
+              }
+            />
             <OverviewRow label="Backend status" value="Connected" />
           </div>
         </section>

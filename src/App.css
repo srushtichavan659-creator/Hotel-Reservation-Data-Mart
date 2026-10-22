@@ -74,6 +74,7 @@ button {
   margin: 0;
   font-size: 17px;
   font-weight: 800;
+  color: #ffffff;
 }
 
 .brand p {
@@ -275,6 +276,7 @@ nav {
   line-height: 1.1;
   font-weight: 800;
   letter-spacing: -1px;
+  color: #ffffff;
 }
 
 .subtitle {
@@ -321,6 +323,8 @@ nav {
   margin: 0;
   font-size: 35px;
   line-height: 1.2;
+  color: #ffffff;
+  font-weight: 800;
 }
 
 .banner span {
@@ -355,6 +359,7 @@ nav {
 .section-heading h2 {
   margin: 0;
   font-size: 17px;
+  color: #ffffff;
 }
 
 .section-heading span {
@@ -417,6 +422,8 @@ nav {
 .kpi-card h2 {
   margin: 20px 0 6px;
   font-size: 30px;
+  color: #ffffff;
+  font-weight: 800;
 }
 
 .kpi-card p {
@@ -453,6 +460,7 @@ nav {
 .panel-heading h3 {
   margin: 0;
   font-size: 16px;
+  color: #ffffff;
 }
 
 .panel-heading p {
@@ -518,6 +526,7 @@ nav {
 .info-card h2 {
   margin: 7px 0;
   font-size: 25px;
+  color: #ffffff;
 }
 
 .info-card p {
@@ -572,9 +581,7 @@ nav {
   color: #888899;
 }
 
-/* ============================================================
-   DATA MART DESIGN — STAR SCHEMA
-   ============================================================ */
+/* ================= DATA MART DESIGN ================= */
 
 .schema-card {
   border: 1px solid #292934;
@@ -601,13 +608,12 @@ nav {
   margin-bottom: 28px;
 }
 
-/* THIS IS THE IMPORTANT PART */
 .schema-grid {
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) minmax(330px, 1.25fr) minmax(
-      220px,
-      1fr
-    );
+  grid-template-columns:
+    minmax(220px, 1fr)
+    minmax(330px, 1.25fr)
+    minmax(220px, 1fr);
   grid-template-rows: auto auto auto;
   column-gap: 35px;
   row-gap: 20px;
@@ -616,7 +622,6 @@ nav {
   min-height: 620px;
 }
 
-/* LEFT SIDE */
 .dimension-card.customer {
   grid-column: 1;
   grid-row: 1;
@@ -627,14 +632,12 @@ nav {
   grid-row: 3;
 }
 
-/* CENTER */
 .fact-table {
   grid-column: 2;
   grid-row: 1 / 4;
   align-self: center;
 }
 
-/* RIGHT SIDE */
 .dimension-card.hotel {
   grid-column: 3;
   grid-row: 1;
@@ -649,8 +652,6 @@ nav {
   grid-column: 3;
   grid-row: 3;
 }
-
-/* DIMENSION CARD */
 
 .dimension-card {
   position: relative;
@@ -697,6 +698,7 @@ nav {
   margin: 0;
   font-size: 16px;
   font-weight: 700;
+  color: #ffffff;
 }
 
 .dimension-fields {
@@ -718,7 +720,7 @@ nav {
   flex-shrink: 0;
 }
 
-/* FACT TABLE */
+/* ================= FACT TABLE ================= */
 
 .fact-table {
   position: relative;
@@ -769,6 +771,7 @@ nav {
 .fact-header h2 {
   margin: 0;
   font-size: 21px;
+  color: #ffffff;
 }
 
 .fact-description {
@@ -801,7 +804,7 @@ nav {
   color: #ffc62f;
 }
 
-/* CONNECTION LINES */
+/* ================= CONNECTION LINES ================= */
 
 .schema-grid::before,
 .schema-grid::after {
@@ -826,18 +829,16 @@ nav {
   background: rgba(255, 82, 112, 0.12);
 }
 
-/* Keep cards above decorative lines */
 .dimension-card,
 .fact-table {
   z-index: 2;
 }
 
-/* Hide crossing lines behind cards */
 .dimension-card {
   background-color: #12121a;
 }
 
-/* LEGEND */
+/* ================= LEGEND ================= */
 
 .schema-legend {
   margin-top: 25px;
@@ -906,6 +907,7 @@ nav {
 .info-banner h3 {
   margin: 2px 0 7px;
   font-size: 15px;
+  color: #ffffff;
 }
 
 .info-banner p {
@@ -939,6 +941,7 @@ nav {
   justify-content: center;
   font-size: 32px;
   font-weight: 800;
+  color: #ffffff;
   background: #151019;
   box-shadow: 0 0 35px rgba(255, 49, 85, 0.12);
 }
@@ -981,6 +984,7 @@ nav {
 
 .cancel-points strong {
   font-size: 22px;
+  color: #ffffff;
 }
 
 .cancel-points p {
@@ -1015,6 +1019,7 @@ nav {
 .segmentation-banner h2 {
   margin: 13px 0 7px;
   font-size: 24px;
+  color: #ffffff;
 }
 
 .segmentation-banner p {
@@ -1068,6 +1073,7 @@ nav {
 .cluster-card h3 {
   margin: 10px 0 20px;
   font-size: 16px;
+  color: #ffffff;
 }
 
 .cluster-row {
@@ -1084,7 +1090,7 @@ nav {
 }
 
 .cluster-row strong {
-  color: #ddddE5;
+  color: #ffffff;
 }
 
 /* ================= PREDICTION ================= */
@@ -1114,6 +1120,7 @@ nav {
 .prediction-card h2 {
   margin: 0;
   font-size: 27px;
+  color: #ffffff;
 }
 
 .prediction-card > p {
@@ -1141,6 +1148,7 @@ nav {
 
 .prediction-grid strong {
   font-size: 13px;
+  color: #ffffff;
 }
 
 /* ================= INSIGHTS ================= */
@@ -1170,6 +1178,7 @@ nav {
 .insight-card h3 {
   margin: 13px 0 9px;
   font-size: 17px;
+  color: #ffffff;
 }
 
 .insight-card p {
@@ -1216,6 +1225,7 @@ nav {
 .experiment-card h3 {
   margin: 9px 0;
   font-size: 16px;
+  color: #ffffff;
 }
 
 .experiment-card p {
