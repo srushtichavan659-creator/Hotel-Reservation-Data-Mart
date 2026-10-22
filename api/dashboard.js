@@ -1,6 +1,6 @@
-const fs = require("fs");
-const path = require("path");
-const csv = require("csv-parser");
+import fs from "fs";
+import path from "path";
+import csv from "csv-parser";
 
 let cachedBookings = null;
 
@@ -11,14 +11,16 @@ function loadBookings() {
       return;
     }
 
-    const bookings = [];
-
-    // CSV is outside frontend, so go one level up to project root,
-    // then into backend/data if your CSV is there.
     const possiblePaths = [
       path.join(process.cwd(), "src", "data", "hotel_bookings.csv"),
       path.join(process.cwd(), "data", "hotel_bookings.csv"),
-      path.join(process.cwd(), "..", "backend", "data", "hotel_bookings.csv"),
+      path.join(
+        process.cwd(),
+        "..",
+        "backend",
+        "data",
+        "hotel_bookings.csv"
+      ),
     ];
 
     const csvPath = possiblePaths.find((p) => fs.existsSync(p));
@@ -39,7 +41,7 @@ function loadBookings() {
   });
 }
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   try {
     const bookings = await loadBookings();
 
@@ -87,4 +89,4 @@ module.exports = async (req, res) => {
       message: error.message,
     });
   }
-};
+}
